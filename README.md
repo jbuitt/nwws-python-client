@@ -25,7 +25,7 @@ Now create a JSON config file with the following format:
 }
 ```
 
-Where `[username]` and `[password]` are your NWWS-2 credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request). You may use whatever you would like for [resource]. The "pan_run" variable is an optional Product Arrival Notification (PAN) script that you'd like to run on product arrival.
+Where `[username]` and `[password]` are your NWWS-2 credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request). You may use whatever you would like for `[resource]`. The `pan_run` variable is an optional Product Arrival Notification (PAN) script that you'd like to run on product arrival.
 
 Now run the script:
 
