@@ -35,9 +35,17 @@ Provided that you're able to connect to the NWWS and your credentials are accept
 
 ```
 [archive_dir]/
-   [wfo]/
-      [wfo]_[wmo_TTAAii]-[awips_id].[product_dayhourmin]_[product_id].txt
+   [cccc]/
+      [cccc]_[ttaaii]-[awipsid].[ddHHMM]_[id].txt
 ```
+
+The above variables have the following meaning:
+
+* `cccc` - International four-letter location indicator of the station or centre originating or compiling the product
+* `ttaaii` - tt - Report type, aa - Region of the report, ii - Report number. [more info](http://weather.unisys.com/noaaport/WMO_Header_Text.php)
+* `awipsid` - [AWIPS](https://www.unidata.ucar.edu/software/awips2/) ID
+* `ddHHMM` - Day, hour, and minute of product issuance
+* `id` - Product NWWS ID
 
 You can either run it via [screen](https://www.gnu.org/software/screen/)/[tmux](https://github.com/tmux/tmux/wiki) or use the included `nwws2` script to run it using [nohup](https://en.wikipedia.org/wiki/Nohup). The client will automatically reconnect to NWWS if the connection is dropped.
 
