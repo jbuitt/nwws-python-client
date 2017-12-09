@@ -19,7 +19,7 @@ After cloning the latest [release](https://github.com/jbuitt/nwws-python-client)
 }
 ```
 
-Where `[username]` and `[password]` are your NWWS-2 credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request). You may use whatever you would like for `[resource]`. The `pan_run` variable is an optional Product Arrival Notification (PAN) script that you'd like to run on product arrival.
+The `[archivedir]` variable is the directory on your system where you would like to store the downloaded products. The variables `[username]` and `[password]` are your NWWS-2 credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request). You may use whatever you would like for `[resource]`. The `pan_run` variable is an optional Product Arrival Notification (PAN) script that you'd like to run on product arrival.
 
 Now run the script:
 
@@ -30,7 +30,7 @@ $ python nwws2.py /path/to/config/file
 Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products appear in the supplied archive directory in the following format:
 
 ```
-[archive_dir]/
+[archivedir]/
    [cccc]/
       [cccc]_[ttaaii]-[awipsid].[ddHHMM]_[id].txt
 ```
