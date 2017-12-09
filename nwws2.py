@@ -4,13 +4,10 @@
 import sys
 import os
 import logging
-import getpass
 import json
 import time
-from datetime import datetime
-from pprint import pprint
-from optparse import OptionParser
 import sleekxmpp
+from datetime import datetime
 from xml.dom import minidom
 
 # Python versions before 3.0 do not use UTF-8 encoding

@@ -3,11 +3,7 @@
 
 A simple product downloader for the NWWS-2 OI ([NOAA Weather Wire Service](http://www.nws.noaa.gov/nwws/) version 2 Open Interface) written in Python. The NOAA Weather Wire Service is a satellite data collection and dissemination system operated by the [National Weather Service](http://weather.gov), which was established in October 2000. Its purpose is to provide state and federal government, commercial users, media and private citizens with timely delivery of meteorological, hydrological, climatological and geophysical information. 
 
-This client makes use of the following Python libraries:
-
-* [sleekxmpp](https://github.com/fritzy/SleekXMPP)
-* [minidom](https://docs.python.org/2/library/xml.dom.minidom.html)
-* [json](https://docs.python.org/2/library/json.html)
+This client makes use of the [sleekxmpp](https://github.com/fritzy/SleekXMPP) Python library for connecting to the NWWS-2 OI XMPP-based server.
 
 ## How do I run it?
 
