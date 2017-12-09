@@ -14,8 +14,8 @@ After cloning the latest [release](https://github.com/jbuitt/nwws-python-client)
   "username": "[username]",
   "password": "[password]",
   "resource": "[resource]",
-  "archivedir": "/path/to/archive/dir",
-  "pan_run": "/path/to/executable_or_script"
+  "archivedir": "[archivedir]",
+  "pan_run": "[pan_run]"
 }
 ```
 
