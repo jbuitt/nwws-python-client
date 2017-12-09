@@ -41,7 +41,7 @@ Provided that you're able to connect to the NWWS and your credentials are accept
       [wfo]_[wmo_TTAAii]-[awips_id].[product_dayhourmin]_[product_id].txt
 ```
 
-You can then type `Ctrl+Z` and then `bg` to send it to the background to continue downloading products. The client will automatically reconnect to NWWS if the connection is dropped. I have also provided a `nwws2` bash script to take care of running the client using [nohup](https://en.wikipedia.org/wiki/Nohup).
+You can either run it via [screen](https://www.gnu.org/software/screen/)/[tmux](https://github.com/tmux/tmux/wiki) or use the included `nwws2` script to run it using [nohup](https://en.wikipedia.org/wiki/Nohup). The client will automatically reconnect to NWWS if the connection is dropped.
 
 ## Author
 
