@@ -44,7 +44,7 @@ Provided that you're able to connect to the NWWS and your credentials are accept
 The above variables have the following meaning:
 
 * `cccc` - International four-letter location indicator of the station or centre originating or compiling the product
-* `ttaaii` - tt - Report type, aa - Region of the report, ii - Report number. [more info](http://weather.unisys.com/noaaport/WMO_Header_Text.php)
+* `ttaaii` - tt - Report type, aa - Region of the report, ii - Report number. ([more info](http://weather.unisys.com/noaaport/WMO_Header_Text.php))
 * `awipsid` - [AWIPS](https://www.unidata.ucar.edu/software/awips2/) ID
 * `ddHHMM` - Day, hour, and minute of product issuance
 * `id` - Product NWWS ID
