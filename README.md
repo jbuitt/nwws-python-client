@@ -25,7 +25,7 @@ Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-cl
 }
 ```
 
-The variables `[username]` and `[password]` are your NWWS-2 OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request). You may use whatever string you would like for `[resource]`. The `[archivedir]` variable is the directory on your system where you would like to store the downloaded products and the `[pan_run]` variable is an optional Product Arrival Notification (PAN) script that you'd like to run on product arrival.
+The variables `[username]` and `[password]` are your NWWS-2 OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request). You may use whatever string you would like for `[resource]` and the `[archivedir]` variable is the directory on your system where you would like to store the downloaded products. The `[pan_run]` variable is optional and specifies the path to a script or program that you'd like to run on product arrival. The client automatically passes the full path to the product to the supplied script or program.
 
 Now run the script:
 
