@@ -7,7 +7,13 @@ This client was developed and tested on [Ubuntu 16.04](http://ubuntu.com) using 
 
 ## How do I run it?
 
-After cloning the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
+On Ubuntu, first run the following to install the `sleekxmpp` library:
+
+```
+sudo apt-get install python-sleekxmpp
+```
+
+Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
 
 ```
 {
