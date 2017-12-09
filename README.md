@@ -51,11 +51,13 @@ The above variables have the following meaning:
 
 You can either run it via [screen](https://www.gnu.org/software/screen/)/[tmux](https://github.com/tmux/tmux/wiki) or use the included `nwws2` script to run it using [nohup](https://en.wikipedia.org/wiki/Nohup). The client will automatically reconnect to NWWS if the connection is dropped.
 
-To automatically remove products older than a week, insert the following line into your crontab:
+The script will continue to run, downloading products to your system. Eventually, it will fill up your filesystem and you'll likely want to clear out old products. For example, to automatically remove products older than a week, insert the following line into your crontab:
 
 ```
 0 0 * * *   /usr/bin/find [archivedir] -type f -mtime +7 {} \; >/dev/null
 ```
+
+You will want to replace [archivedir] with the path to the product directory.
 
 ## Author
 
