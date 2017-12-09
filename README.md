@@ -11,7 +11,7 @@ This client makes use of the following Python libraries:
 
 ## How do I run it?
 
-This script was developed and tested on [Ubuntu 16.04](http://ubuntu.com) using ***Python v2.7***. After downloading the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
+This script was developed and tested on [Ubuntu 16.04](http://ubuntu.com) using ***Python v2.7***. After cloning the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
 
 ```
 {
