@@ -24,7 +24,7 @@ Where `[username]` and `[password]` are your NWWS-2 credentials obtained by sign
 Now run the script:
 
 ```
-$ python ./nwws2.py /path/to/config/file
+$ python nwws2.py /path/to/config/file
 ```
 
 Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products appear in the supplied archive directory in the following format:
