@@ -54,7 +54,7 @@ You can either run it via [screen](https://www.gnu.org/software/screen/) / [tmux
 The script will continue to run, downloading products to your system. Eventually, it will fill up your filesystem and you'll likely want to clear out old products. For example, to automatically remove products older than a week, insert the following line into your crontab:
 
 ```
-0 0 * * *   /usr/bin/find [archivedir] -type f -mtime +7 {} \; >/dev/null
+0 0 * * *   /usr/bin/find [archivedir] -type f -mtime +7 -delete >/dev/null
 ```
 
 You will want to replace [archivedir] with the path to the product directory.
