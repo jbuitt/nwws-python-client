@@ -13,6 +13,12 @@ On Ubuntu, first install the `sleekxmpp` library:
 sudo apt-get install python-sleekxmpp
 ```
 
+If not on Ubuntu, you can use pip to install:
+
+```
+pip install -r requirements.txt
+```
+
 Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
 
 ```
