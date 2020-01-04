@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import signal
 import os
 import logging
 import json
@@ -19,6 +20,14 @@ if sys.version_info < (3, 0):
     sys.setdefaultencoding('utf8')
 else:
     raw_input = input
+
+def signal_handler(signal, frame):
+    print('Caught Ctrl+C. Exiting.')
+    file = open('/tmp/exit_nwws2', 'w')
+    file.close()
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
 
 class MUCBot(sleekxmpp.ClientXMPP):
 
@@ -103,7 +112,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
         #    self.send_message(mto=msg['from'].bare,
         #                      mbody="I heard that, %s." % msg['mucnick'],
         #                      mtype='groupchat')
-	#print msg['body']
+	print msg['body']
 	xmldoc = minidom.parseString(str(msg));
 	itemlist = xmldoc.getElementsByTagName('x')
 	ttaaii = itemlist[0].attributes['ttaaii'].value.lower()
@@ -127,6 +136,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
 	   # Remove every other line and print out file
   	   print("INFO\tWriting " + filename)
            sys.stdout.flush()
+	   # Remove every other line
 	   lines = content.splitlines()
 	   f = open(pathtofile, 'w')
 	   count = 0
@@ -204,7 +214,9 @@ if __name__ == '__main__':
             # if xmpp.connect(('talk.google.com', 5222)):
             #     ...
             xmpp.process(block=True)
-            print("Done")
+            if os.path.isfile('/tmp/exit_nwws2'):
+               os.remove('/tmp/exit_nwws2')
+               sys.exit(1)
         else:
             print("Unable to connect.")
             sys.exit(1)

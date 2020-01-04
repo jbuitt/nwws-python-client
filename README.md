@@ -13,6 +13,12 @@ On Ubuntu, first install the `sleekxmpp` library:
 sudo apt-get install python-sleekxmpp
 ```
 
+If not on Ubuntu, you can use pip to install:
+
+```
+pip install -r requirements.txt
+```
+
 Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
 
 ```
@@ -54,7 +60,7 @@ The above variables have the following meaning:
 
 * `cccc` - International four-letter location indicator of the station or centre originating or compiling the product
 * `ttaaii` - tt - Report type, aa - Region of the report, ii - Report number. ([more info](http://weather.unisys.com/noaaport/WMO_Header_Text.php))
-* `awipsid` - [AWIPS](https://www.unidata.ucar.edu/software/awips2/) ID
+* `awipsid` - Product's [AWIPS](https://www.unidata.ucar.edu/software/awips2/) ID
 * `ddHHMM` - Day, hour, and minute of product issuance
 * `id` - Product NWWS ID
 
@@ -63,7 +69,7 @@ You can either run it via [screen](https://www.gnu.org/software/screen/) / [tmux
 The script will continue to run, downloading products to your system. If products are being archved, they will eventually fill up your filesystem and you'll likely want to clear out old products. For example, to automatically remove products older than a week, insert the following line into your crontab:
 
 ```
-0 0 * * *   /usr/bin/find [archivedir] -type f -mtime +7 {} \; >/dev/null
+0 0 * * *   /usr/bin/find [archivedir] -type f -mtime +7 -delete >/dev/null
 ```
 
 You will want to replace [archivedir] with the path to the product directory.
