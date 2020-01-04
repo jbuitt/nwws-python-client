@@ -21,19 +21,28 @@ Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-cl
   "password": "[password]",
   "resource": "[resource]",
   "archivedir": "[archivedir]",
-  "pan_run": "[pan_run]"
+  "pan_run": "[pan_run]",
+  "pan_run_log": "[pan_run_log]"
 }
 ```
 
-The variables `[username]` and `[password]` are your NWWS-2 OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request). You may use whatever string you would like for `[resource]` and the `[archivedir]` variable is the directory on your system where you would like to store the downloaded products. The `[pan_run]` variable is optional and specifies the path to a script or program that you'd like to run on product arrival. The client automatically passes the full path to the product to the supplied script or program.
+The variables `[username]` and `[password]` are required and refer to your NWWS-2 OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request).
 
-Now run the client:
+You may use whatever string you would like for `[resource]`. The variable is required.
+
+The `[archivedir]` variable is optional and specifies the directory on your system where you would like to store the downloaded products. The variable is optional in case you'd like to avoid saving products to your local system and only process them using a `[pan_run]` command, defined below.
+
+The `[pan_run]` variable is also optional and specifies the path to a script or program that you'd like to run on product arrival. The client automatically passes the full path to the product to the supplied script or program. If `[archivedir]` is not specified, the product is temporarily saved to your `/tmp/` directory and then removed after the program or script is run.
+
+The `[pan_run_log]` variable is an optional variable to specify the log file where messages are run when the `[pan_run]` program script is run. Otherwise, the messages will be send to /dev/null.
+
+The client has the following usage:
 
 ```
 $ python nwws2.py /path/to/config/file
 ```
 
-Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products appear in the supplied archive directory in the following format:
+Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products downloaded, and if the `[archivedir]` config variable was specified, you'll see the products saved to the directory in the following format:
 
 ```
 [archivedir]/
@@ -51,7 +60,7 @@ The above variables have the following meaning:
 
 You can either run it via [screen](https://www.gnu.org/software/screen/) / [tmux](https://github.com/tmux/tmux/wiki) or use the included `nwws2` script to run it using [nohup](https://en.wikipedia.org/wiki/Nohup). The client will automatically reconnect to NWWS if the connection is dropped.
 
-The script will continue to run, downloading products to your system. Eventually, it will fill up your filesystem and you'll likely want to clear out old products. For example, to automatically remove products older than a week, insert the following line into your crontab:
+The script will continue to run, downloading products to your system. If products are being archved, they will eventually fill up your filesystem and you'll likely want to clear out old products. For example, to automatically remove products older than a week, insert the following line into your crontab:
 
 ```
 0 0 * * *   /usr/bin/find [archivedir] -type f -mtime +7 {} \; >/dev/null

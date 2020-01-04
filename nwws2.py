@@ -115,27 +115,42 @@ class MUCBot(sleekxmpp.ClientXMPP):
 	   dayhourmin = datetime.utcnow().strftime("%d%H%M")
 	   id = id.replace('.', '')
 	   filename = cccc + '_' + ttaaii + '-' + awipsid + '.' + dayhourmin + '_' + id[-6:] + '.txt'
-	   print("INFO\t Writing " + filename)
-	   if not os.path.exists(config['archivedir'] + '/' + cccc):
-	      os.makedirs(config['archivedir'] + '/' + cccc)
-	   # Remove every other line
+           # Write out file if archivedir is specified in config file
+	   pathtofile = '/tmp/' + filename
+           if config.has_key('archivedir'):
+              # Create archive directory if it does not exist
+              if not os.path.exists(config['archivedir']):
+                os.makedirs(config['archivedir'])
+	      if not os.path.exists(config['archivedir'] + '/' + cccc):
+	         os.makedirs(config['archivedir'] + '/' + cccc)
+	      pathtofile = config['archivedir'] + '/' + cccc + '/' + filename
+	   # Remove every other line and print out file
+  	   print("INFO\tWriting " + filename)
+           sys.stdout.flush()
 	   lines = content.splitlines()
-	   pathtofile = config['archivedir'] + '/' + cccc + '/' + filename
 	   f = open(pathtofile, 'w')
 	   count = 0
 	   for line in lines:
-	      if count == 0 and line == '':
-		 continue
-	      if count % 2 == 0:
-	         f.write(line + "\n")
-	      count += 1
+	     if count == 0 and line == '':
+	        continue
+	     if count % 2 == 0:
+	        f.write(line + "\n")
+	     count += 1
 	   f.close()
-	   # Run a command using the file as the parameter (if pan_run is defined in the config file)
+	   # Run a Product Arrival Notification (PAN) command if pan_run is defined in the config file
+           # The full path to the product is passed to the command as the first parameter
 	   if config.has_key('pan_run'):
+              wheretolog = '>/dev/null'
+              if config.has_key('pan_run_log'):
+                 wheretolog = '>>' + config['pan_run_log']
+              # Try running the command and catch any errors
 	      try:
-	         os.system(config['pan_run']+' '+pathtofile+' >/dev/null')
+	         os.system(config['pan_run'] + ' ' + pathtofile + ' ' + wheretolog + ' 2>&1')
 	      except OSError as e:
-		 print >>sys.stderr, "ERROR    Execution failed:", e
+		 print >>sys.stderr, "ERROR\tExecution failed:", e
+                 sys.stderr.flush()
+           if not config.has_key('archivedir'):
+             os.remove(pathtofile)
 
     def muc_online(self, presence):
         """
@@ -167,10 +182,6 @@ if __name__ == '__main__':
 
     # Parse JSON config
     config = json.load(open('config.json'))
-
-    # Create archive directory if it does not exist
-    if not os.path.exists(config['archivedir']):
-       os.makedirs(config['archivedir'])
 
     # Start endless loop
     while True:
