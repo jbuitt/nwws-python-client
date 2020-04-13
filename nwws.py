@@ -174,26 +174,23 @@ if __name__ == '__main__':
     # Parse JSON config
     config = json.load(open('config.json'))
 
-<<<<<<< HEAD:nwws.py
     # Create archive directory if it does not exist
     if not os.path.exists(config['archivedir']):
         os.makedirs(config['archivedir'])
 
-=======
->>>>>>> dd29c1aa104b7be4c3079741eb3b3e7fae2dfeb6:nwws2.py
     # Start endless loop
     while True:
 
         # Setup the MUCBot and register plugins. Note that while plugins may
         # have interdependencies, the order in which you register them does
         # not matter.
-        xmpp = MUCBot(config['username'] + '@nwws-oi.weather.gov', config['password'], 'nwws@conference.nwws-oi.weather.gov', config['resource'])
+        xmpp = MUCBot(config['username'] + '@' + config['server'], config['password'], 'nwws@conference.' + config['server'], config['resource'])
         xmpp.register_plugin('xep_0030') # Service Discovery
         xmpp.register_plugin('xep_0045') # Multi-User Chat
         xmpp.register_plugin('xep_0199') # XMPP Ping
 
         # Connect to the XMPP server and start processing XMPP stanzas.
-        if xmpp.connect():
+        if xmpp.connect((conf['server'], conf['port'])):
             # If you do not have the dnspython library installed, you will need
             # to manually specify the name of the server if it does not match
             # the one in the JID. For example, to use Google Talk you would
