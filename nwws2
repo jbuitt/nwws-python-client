@@ -1,2 +1,0 @@
-#!/bin/bash
-nohup python nwws2.py config.json >nwws2.log &

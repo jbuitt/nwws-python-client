@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import sys
@@ -23,7 +22,7 @@ else:
 
 def signal_handler(signal, frame):
     print('Caught Ctrl+C. Exiting.')
-    file = open('/tmp/exit_nwws2', 'w')
+    file = open('/tmp/exit_nwws', 'w')
     file.close()
     sys.exit(0)
 
@@ -63,7 +62,6 @@ class MUCBot(sleekxmpp.ClientXMPP):
         # muc::room@server::got_online, or muc::room@server::got_offline.
         self.add_event_handler("muc::%s::got_online" % self.room,
                                self.muc_online)
-
 
     def start(self, event):
         """
@@ -112,39 +110,38 @@ class MUCBot(sleekxmpp.ClientXMPP):
         #    self.send_message(mto=msg['from'].bare,
         #                      mbody="I heard that, %s." % msg['mucnick'],
         #                      mtype='groupchat')
-	print msg['body']
-	xmldoc = minidom.parseString(str(msg));
-	itemlist = xmldoc.getElementsByTagName('x')
-	ttaaii = itemlist[0].attributes['ttaaii'].value.lower()
-	cccc = itemlist[0].attributes['cccc'].value.lower()
-	awipsid = itemlist[0].attributes['awipsid'].value.lower()
-	id = itemlist[0].attributes['id'].value.lower()
-	content = itemlist[0].firstChild.nodeValue
-	if awipsid:
-	   dayhourmin = datetime.utcnow().strftime("%d%H%M")
-	   id = id.replace('.', '')
-	   filename = cccc + '_' + ttaaii + '-' + awipsid + '.' + dayhourmin + '_' + id[-6:] + '.txt'
-	   #print("INFO\t Writing " + filename)
-	   if not os.path.exists(config['archivedir'] + '/' + cccc):
-	      os.makedirs(config['archivedir'] + '/' + cccc)
-	   # Remove every other line
-	   lines = content.splitlines()
-	   pathtofile = config['archivedir'] + '/' + cccc + '/' + filename
-	   f = open(pathtofile, 'w')
-	   count = 0
-	   for line in lines:
-	      if count == 0 and line == '':
-		 continue
-	      if count % 2 == 0:
-	         f.write(line + "\n")
-	      count += 1
-	   f.close()
-	   # Run a command using the file as the parameter (if pan_run is defined in the config file)
-	   if config.has_key('pan_run'):
-	      try:
-	         os.system(config['pan_run']+' '+pathtofile+' >/dev/null')
-	      except OSError as e:
-		 print >>sys.stderr, "ERROR    Execution failed:", e
+        print('message stanza rcvd from nwws-oi saying... ' + msg['body'])
+        xmldoc = minidom.parseString(str(msg))
+        itemlist = xmldoc.getElementsByTagName('x')
+        ttaaii = itemlist[0].attributes['ttaaii'].value.lower()
+        cccc = itemlist[0].attributes['cccc'].value.lower()
+        awipsid = itemlist[0].attributes['awipsid'].value.lower()
+        id = itemlist[0].attributes['id'].value
+        content = itemlist[0].firstChild.nodeValue
+        if awipsid:
+            dayhourmin = datetime.utcnow().strftime("%d%H%M")
+            filename = cccc + '_' + ttaaii + '-' + awipsid + '.' + dayhourmin + '_' + id + '.txt'
+            #print("INFO\t Writing " + filename)
+            if not os.path.exists(config['archivedir'] + '/' + cccc):
+                os.makedirs(config['archivedir'] + '/' + cccc)
+            # Remove every other line
+            lines = content.splitlines()
+            pathtofile = config['archivedir'] + '/' + cccc + '/' + filename
+            f = open(pathtofile, 'w')
+            count = 0
+            for line in lines:
+                if count == 0 and line == '':
+                    continue
+                if count % 2 == 0:
+                    f.write(line + "\n")
+                count += 1
+            f.close()
+            # Run a command using the file as the parameter (if pan_run is defined in the config file)
+            if 'pan_run' in config:
+                try:
+                    os.system(config['pan_run']+' '+pathtofile+' >/dev/null')
+                except OSError as e:
+                    print >>sys.stderr, "ERROR    Execution failed:", e
 
     def muc_online(self, presence):
         """
@@ -160,16 +157,16 @@ class MUCBot(sleekxmpp.ClientXMPP):
         """
         if presence['muc']['nick'] != self.nick:
             self.send_message(mto=presence['from'].bare,
-                              mbody="Hello, %s %s" % (presence['muc']['role'],
-                                                      presence['muc']['nick']),
-                              mtype='groupchat')
+                mbody="Hello, %s %s" % (presence['muc']['role'],
+                    presence['muc']['nick']),
+                mtype='groupchat')
 
 
 if __name__ == '__main__':
     # Check for command line arguments
     if len(sys.argv) == 1:
-       print('Usage: '+sys.argv[0]+' /path/to/config')
-       sys.exit(1)
+        print('Usage: '+sys.argv[0]+' /path/to/config')
+        sys.exit(1)
 
     # Setup logging.
     logging.basicConfig(level=logging.INFO, format='%(levelname)-8s %(message)s')
@@ -179,7 +176,7 @@ if __name__ == '__main__':
 
     # Create archive directory if it does not exist
     if not os.path.exists(config['archivedir']):
-       os.makedirs(config['archivedir'])
+        os.makedirs(config['archivedir'])
 
     # Start endless loop
     while True:
@@ -202,9 +199,9 @@ if __name__ == '__main__':
             # if xmpp.connect(('talk.google.com', 5222)):
             #     ...
             xmpp.process(block=True)
-            if os.path.isfile('/tmp/exit_nwws2'):
-               os.remove('/tmp/exit_nwws2')
-               sys.exit(1)
+            if os.path.isfile('/tmp/exit_nwws'):
+                os.remove('/tmp/exit_nwws')
+                sys.exit(1)
         else:
             print("Unable to connect.")
             sys.exit(1)
