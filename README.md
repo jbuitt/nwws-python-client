@@ -30,7 +30,7 @@ The variables `[username]` and `[password]` are your NWWS-2 OI credentials obtai
 Now run the client:
 
 ```
-$ python nwws2.py /path/to/config/file
+$ python3 nwws.py /path/to/config/file
 ```
 
 Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products appear in the supplied archive directory in the following format:
@@ -47,9 +47,9 @@ The above variables have the following meaning:
 * `ttaaii` - tt - Report type, aa - Region of the report, ii - Report number. ([more info](http://weather.unisys.com/noaaport/WMO_Header_Text.php))
 * `awipsid` - Product's [AWIPS](https://www.unidata.ucar.edu/software/awips2/) ID
 * `ddHHMM` - Day, hour, and minute of product issuance
-* `id` - Product NWWS ID
+* `id` - Unique product ID
 
-You can either run it via [screen](https://www.gnu.org/software/screen/) / [tmux](https://github.com/tmux/tmux/wiki) or use the included `nwws2` script to run it using [nohup](https://en.wikipedia.org/wiki/Nohup). The client will automatically reconnect to NWWS if the connection is dropped.
+You can either run it via [screen](https://www.gnu.org/software/screen/) / [tmux](https://github.com/tmux/tmux/wiki) or use the included `start.sh` script which starts it and sends it to the background using nohup. The client will automatically reconnect to NWWS if the connection is dropped.
 
 The script will continue to run, downloading products to your system. Eventually, it will fill up your filesystem and you'll likely want to clear out old products. For example, to automatically remove products older than a week, insert the following line into your crontab:
 
