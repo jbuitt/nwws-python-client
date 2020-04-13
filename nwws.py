@@ -174,10 +174,13 @@ if __name__ == '__main__':
     # Parse JSON config
     config = json.load(open('config.json'))
 
+<<<<<<< HEAD:nwws.py
     # Create archive directory if it does not exist
     if not os.path.exists(config['archivedir']):
         os.makedirs(config['archivedir'])
 
+=======
+>>>>>>> dd29c1aa104b7be4c3079741eb3b3e7fae2dfeb6:nwws2.py
     # Start endless loop
     while True:
 
