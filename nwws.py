@@ -110,7 +110,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
         #    self.send_message(mto=msg['from'].bare,
         #                      mbody="I heard that, %s." % msg['mucnick'],
         #                      mtype='groupchat')
-        print('DEBUG\t message stanza rcvd from nwws-oi saying... ' + msg['body'])
+        print('INFO\t message stanza rcvd from nwws-oi saying... ' + msg['body'])
         xmldoc = minidom.parseString(str(msg))
         itemlist = xmldoc.getElementsByTagName('x')
         ttaaii = itemlist[0].attributes['ttaaii'].value.lower()
@@ -121,7 +121,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
         if awipsid:
             dayhourmin = datetime.utcnow().strftime("%d%H%M")
             filename = cccc + '_' + ttaaii + '-' + awipsid + '.' + dayhourmin + '_' + id + '.txt'
-            print("INFO\t Writing " + filename)
+            print("DEBUG\t Writing " + filename, file=sys.stderr)
             if not os.path.exists(config['archivedir'] + '/' + cccc):
                 os.makedirs(config['archivedir'] + '/' + cccc)
             # Remove every other line
@@ -141,7 +141,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
                 try:
                     os.system(config['pan_run']+' '+pathtofile+' >/dev/null')
                 except OSError as e:
-                    print >>sys.stderr, "ERROR    Execution failed:", e
+                    print("ERROR\t Execution failed: " + e, file=sys.stderr)
 
     def muc_online(self, presence):
         """
