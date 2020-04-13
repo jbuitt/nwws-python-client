@@ -23,6 +23,8 @@ Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-cl
 
 ```
 {
+  "server": "[server]",
+  "port": "[port]",
   "username": "[username]",
   "password": "[password]",
   "resource": "[resource]",
@@ -32,7 +34,7 @@ Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-cl
 }
 ```
 
-The variables `[username]` and `[password]` are required and refer to your NWWS-OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request).
+The variables `[server]` and `[port]` are required and refer to the NWWS-OI server hostname and port, usually `nwws-oi.weather.gov` and `5222` respectively. The variables `[username]` and `[password]` are required and refer to your NWWS-OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request).
 
 You may use whatever string you would like for `[resource]`. The variable is required.
 
