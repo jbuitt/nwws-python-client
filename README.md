@@ -1,22 +1,22 @@
 
 # nwws-python-client
 
-This is a simple product download client for the NWWS-2 OI ([NOAA Weather Wire Service](http://www.nws.noaa.gov/nwws/) version 2 Open Interface) written in Python. The NOAA Weather Wire Service is a satellite data collection and dissemination system operated by the [National Weather Service](http://weather.gov), which was established in October 2000. Its purpose is to provide state and federal government, commercial users, media and private citizens with timely delivery of meteorological, hydrological, climatological and geophysical information. 
+This is a simple product download client for the NWWS-OI ([NOAA Weather Wire Service](http://www.nws.noaa.gov/nwws/) Open Interface) written in Python. The NOAA Weather Wire Service is a satellite data collection and dissemination system operated by the [National Weather Service](http://weather.gov), which was established in October 2000. Its purpose is to provide state and federal government, commercial users, media and private citizens with timely delivery of meteorological, hydrological, climatological and geophysical information. 
 
-This client was developed and tested on [Ubuntu 16.04](http://ubuntu.com) using Python v2.7 and makes use of the [sleekxmpp](https://github.com/fritzy/SleekXMPP) Python library for connecting to the NWWS-2 OI XMPP-based server.
+This client was developed and tested on [Ubuntu 18.04](http://ubuntu.com) using Python v3.7 and makes use of the [sleekxmpp](https://github.com/fritzy/SleekXMPP) Python library for connecting to the NWWS-2 OI XMPP-based server.
 
 ## How do I run it?
 
 On Ubuntu, first install the `sleekxmpp` library:
 
 ```
-sudo apt-get install python-sleekxmpp
+sudo apt-get install python3-sleekxmpp
 ```
 
 If not on Ubuntu, you can use pip to install:
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
@@ -32,7 +32,7 @@ Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-cl
 }
 ```
 
-The variables `[username]` and `[password]` are required and refer to your NWWS-2 OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request).
+The variables `[username]` and `[password]` are required and refer to your NWWS-OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request).
 
 You may use whatever string you would like for `[resource]`. The variable is required.
 
