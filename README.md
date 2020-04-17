@@ -30,7 +30,10 @@ Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-cl
   "resource": "[resource]",
   "archivedir": "[archivedir]",
   "pan_run": "[pan_run]",
-  "pan_run_log": "[pan_run_log]"
+  "pan_run_log": "[pan_run_log]",
+  "retry": true|false,
+  "use_tls": true|false,
+  "use_ssl": true|false
 }
 ```
 
@@ -43,6 +46,10 @@ The `[archivedir]` variable is optional and specifies the directory on your syst
 The `[pan_run]` variable is also optional and specifies the path to a script or program that you'd like to run on product arrival. The client automatically passes the full path to the product to the supplied script or program. If `[archivedir]` is not specified, the product is temporarily saved to your `/tmp/` directory and then removed after the program or script is run.
 
 The `[pan_run_log]` variable is an optional variable to specify the log file where messages are run when the `[pan_run]` program script is run. Otherwise, the messages will be send to /dev/null.
+
+The `[retry]` variable specifies whether you would like to retry the connection upon disconnection from the server. You'll likely want to set this to `true`.
+
+The options `[use_tls]` and `[use_ssl]` are for specifying the security settings on the NWWS-OI connection. Typically, you'll want to set `[use_tls]` to `true` and `[use_ssl]` to `false`, however there have been some reports that attempts to connect with Python 3.7 and TLS fails with certificate verification errors. In that case you should set `[use_tls]` to `false` and `[use_ssl]` to `true`.
 
 The client has the following usage:
 
