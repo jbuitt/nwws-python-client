@@ -7,19 +7,29 @@ This client was developed and tested on [Ubuntu 18.04](http://ubuntu.com) using 
 
 ## How do I run it?
 
-On Ubuntu, first install the `sleekxmpp` library:
+It's now super simple to run this using [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). However, you'll need to first create a config file, documented below. 
+
+Once you have your config.json file created, create the directory that you'll save products to (e.g. `products`):
 
 ```
-sudo apt-get install python3-sleekxmpp
+mkdir products
 ```
 
-If not on Ubuntu, you can use pip to install:
+Now, start up the client by running:
 
 ```
-pip3 install -r requirements.txt
+docker-compose up
 ```
 
-Now, after cloning the latest [release](https://github.com/jbuitt/nwws-python-client), create a JSON config file using the following format:
+It will take care of building the Docker image and running it. You can also run the client in the background by running:
+
+```
+docker compose up -d
+```
+
+## Config file 
+
+The NWWS Client requires a JSON config file using the following format:
 
 ```
 {

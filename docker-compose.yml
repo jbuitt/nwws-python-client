@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: 'nwws-python-client:latest'
+        container_name: nwws-python-client
+        working_dir: /app
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - '${PWD-.}/config.json:/app/config.json'
+            - '${PWD-.}/products:/app/products'
+
