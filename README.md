@@ -24,7 +24,7 @@ docker-compose up
 It will take care of building the Docker image and running it. You can also run the client in the background by running:
 
 ```
-docker compose up -d
+docker-compose up -d
 ```
 
 ## Config file 
@@ -82,8 +82,6 @@ The above variables have the following meaning:
 * `awipsid` - Product's [AWIPS](https://www.unidata.ucar.edu/software/awips2/) ID
 * `ddHHMM` - Day, hour, and minute of product issuance
 * `id` - Unique product ID
-
-You can either run it via [screen](https://www.gnu.org/software/screen/) / [tmux](https://github.com/tmux/tmux/wiki) or use the included `start.sh` script which starts it and sends it to the background using nohup. The client will automatically reconnect to NWWS if the connection is dropped.
 
 The script will continue to run, downloading products to your system. If products are being archved, they will eventually fill up your filesystem and you'll likely want to clear out old products. For example, to automatically remove products older than a week, insert the following line into your crontab:
 
