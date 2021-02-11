@@ -4,7 +4,8 @@ FROM ubuntu:18.04
 WORKDIR /app
 
 # Copy required files to work directory
-COPY nwws.py requirements.txt .
+COPY nwws.py .
+COPY requirements.txt .
 
 # Clean out apt cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
