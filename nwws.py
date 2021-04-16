@@ -6,6 +6,7 @@ import os
 import logging
 import json
 import time
+import ssl
 import sleekxmpp
 from datetime import datetime
 from xml.dom import minidom
@@ -188,6 +189,9 @@ if __name__ == '__main__':
         xmpp.register_plugin('xep_0030') # Service Discovery
         xmpp.register_plugin('xep_0045') # Multi-User Chat
         xmpp.register_plugin('xep_0199') # XMPP Ping
+
+        # nwws-oi.weather.gov now requires TLSv2.3
+        xmpp.ssl_version = ssl.PROTOCOL_SSLv23
 
         # Connect to the XMPP server and start processing XMPP stanzas.
         if xmpp.connect((config['server'], config['port']), config['retry'], config['use_tls'], config['use_ssl']):
