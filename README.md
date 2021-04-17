@@ -27,6 +27,13 @@ It will take care of building the Docker image and running it. You can also run 
 docker-compose up -d
 ```
 
+If you can't or don't want to use Docker, you can run it on Ubuntu or a Raspberry Pi (with Raspbian) by first installing the 
+SleekXMPP Python library by running:
+
+```
+sudo apt-get install python3-sleekxmpp -y
+```
+
 ## Config file 
 
 The NWWS Client requires a JSON config file using the following format:
@@ -91,6 +98,30 @@ The script will continue to run, downloading products to your system. If product
 ```
 
 You will want to replace [archivedir] with the path to the product directory.
+
+## Running the client in the background
+
+If you would like to run the client in the background, you can use GNU screen, tmux, or nohup. Examples:
+
+```
+$ sudo apt-get install screen -y
+$ screen -d -m python3 nwws.py config.json
+# Run the following to re-attach to the screen session. Type Ctrl+a d to detach
+$ screen -r
+```
+
+```
+$ sudo apt-get install tmux -y
+$ tmux new-session -d -s "nwws" python3 nwws.py config.json
+# Run the following to re-attach to the tmux session. Type Ctrl+b d to detach
+$ tmux a -t nwws
+```
+
+```
+$ nohup python3 -u nwws.py config.json >>nwws.log 2>&1 &
+# To tail the log file..
+$ tail -f nwws.log
+``
 
 ## Author
 
