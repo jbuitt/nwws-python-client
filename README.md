@@ -33,41 +33,42 @@ The NWWS Client requires a JSON config file using the following format:
 
 ```
 {
-  "server": "[server]",
-  "port": "[port]",
+  "server": "nwws-oi.weather.gov",
+  "port": 5222,
   "username": "[username]",
   "password": "[password]",
   "resource": "[resource]",
   "archivedir": "[archivedir]",
   "pan_run": "[pan_run]",
   "pan_run_log": "[pan_run_log]",
-  "retry": true|false,
-  "use_tls": true|false,
-  "use_ssl": true|false
+  "retry": true,
+  "use_tls": true,
+  "use_ssl": false
 }
 ```
 
-The variables `[server]` and `[port]` are required and refer to the NWWS-OI server hostname and port, usually `nwws-oi.weather.gov` and `5222` respectively. The variables `[username]` and `[password]` are required and refer to your NWWS-OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request).
+The variables `username` and `password` are required and refer to your NWWS-OI credentials obtained by signing up [on the NOAA Weather Wire Service website](http://www.nws.noaa.gov/nwws/#NWWS_OI_Request).
 
-You may use whatever string you would like for `[resource]`. The variable is required.
+You may use whatever string you would like for `resource`. The variable is required. Also, the NWWS-OI server keeps track of resource names, so you
+should make the name unique if you are running this client in multiple locations.
 
-The `[archivedir]` variable is optional and specifies the directory on your system where you would like to store the downloaded products. The variable is optional in case you'd like to avoid saving products to your local system and only process them using a `[pan_run]` command, defined below.
+The `archivedir` variable is optional and specifies the directory on your system where you would like to store the downloaded products. The variable is optional in case you'd like to avoid saving products to your local system and only process them using a `pan_run` command, defined below.
 
-The `[pan_run]` variable is also optional and specifies the path to a script or program that you'd like to run on product arrival. The client automatically passes the full path to the product to the supplied script or program. If `[archivedir]` is not specified, the product is temporarily saved to your `/tmp/` directory and then removed after the program or script is run.
+The `pan_run` variable is also optional and specifies the path to a script or program that you'd like to run on product arrival. The client automatically passes the full path to the product to the supplied script or program. If `archivedir` is not specified, the product is temporarily saved to your `/tmp/` directory and then removed after the program or script is run.
 
-The `[pan_run_log]` variable is an optional variable to specify the log file where messages are run when the `[pan_run]` program script is run. Otherwise, the messages will be send to /dev/null.
+The `pan_run_log` variable is an optional variable to specify the log file where messages are run when the `pan_run` program script is run. Otherwise, the messages will be send to /dev/null.
 
-The `[retry]` variable specifies whether you would like to retry the connection upon disconnection from the server. You'll likely want to set this to `true`.
+The `retry` variable specifies whether you would like to retry the connection upon disconnection from the server. You'll likely want to set this to `true`.
 
-The options `[use_tls]` and `[use_ssl]` are for specifying the security settings on the NWWS-OI connection. Typically, you'll want to set `[use_tls]` to `true` and `[use_ssl]` to `false`, however there have been some reports that attempts to connect with Python 3.7 and TLS fails with certificate verification errors. In that case you should set `[use_tls]` to `false` and `[use_ssl]` to `true`.
+The options `use_tls` and `use_ssl` are for specifying the security settings on the NWWS-OI connection. Typically, you'll want to set `use_tls` to `true` and `use_ssl` to `false`.
 
-The client has the following usage:
+## Running the client outside of Docker
 
 ```
 $ python3 nwws.py /path/to/config/file
 ```
 
-Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products downloaded, and if the `[archivedir]` config variable was specified, you'll see the products saved to the directory in the following format:
+Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products downloaded, and if the `archivedir` config variable was specified, you'll see the products saved to the directory in the following format:
 
 ```
 [archivedir]/
