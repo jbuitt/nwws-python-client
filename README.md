@@ -123,7 +123,7 @@ $ tmux a -t nwws
 $ nohup python3 -u nwws.py config.json >>nwws.log 2>&1 &
 # To tail the log file..
 $ tail -f nwws.log
-``
+```
 
 ## Author
 
