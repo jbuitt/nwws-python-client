@@ -34,6 +34,8 @@ SleekXMPP Python library by running:
 sudo apt-get install python3-sleekxmpp -y
 ```
 
+You can then proceed to the section below 'Running the client outside of Docker' to run the client.
+
 ## Config file 
 
 The NWWS Client requires a JSON config file using the following format:
