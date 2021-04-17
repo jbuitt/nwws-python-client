@@ -111,6 +111,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
         #    self.send_message(mto=msg['from'].bare,
         #                      mbody="I heard that, %s." % msg['mucnick'],
         #                      mtype='groupchat')
+        #print(str(msg))
         print('INFO\t message stanza rcvd from nwws-oi saying... ' + msg['body'])
         xmldoc = minidom.parseString(str(msg))
         itemlist = xmldoc.getElementsByTagName('x')
