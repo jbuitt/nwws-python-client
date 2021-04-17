@@ -10,6 +10,7 @@ services:
         restart: unless-stopped
         tty: true
         volumes:
+            - '/etc/localtime:/etc/localtime:ro'
             - '${PWD-.}/config.json:/app/config.json'
             - '${PWD-.}/products:/app/products'
 
