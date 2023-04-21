@@ -3,7 +3,7 @@
 
 This is a simple product download client for the NWWS-OI ([NOAA Weather Wire Service](http://www.nws.noaa.gov/nwws/) Open Interface) written in Python. The NOAA Weather Wire Service is a satellite data collection and dissemination system operated by the [National Weather Service](http://weather.gov), which was established in October 2000. Its purpose is to provide state and federal government, commercial users, media and private citizens with timely delivery of meteorological, hydrological, climatological and geophysical information. 
 
-This client was developed and tested on [Ubuntu 20.04](http://ubuntu.com) using Python v3.8 and makes use of the [sleekxmpp](https://github.com/fritzy/SleekXMPP) Python library for connecting to the NWWS-2 OI XMPP-based server.
+This client was developed and tested on [Ubuntu 22.04](http://ubuntu.com) using Python v3.10 and makes use of the [sleekxmpp](https://github.com/fritzy/SleekXMPP) Python library for connecting to the NWWS-2 OI XMPP-based server.
 
 ## How do I run it?
 
@@ -75,6 +75,15 @@ The options `use_tls` and `use_ssl` are for specifying the security settings on 
 
 ```
 $ python3 nwws.py /path/to/config/file
+```
+
+#### Special note for those running Python 3.10 ####
+
+Python 3.10 has moved the collections module to collection.abc and the SleekXMPP has not yet updated their code yet to reflect this change. If you are running Python 3.10 (3.9 and below are not affected) you must run the following commands locally in order for the `nwws.py` to work.
+
+```
+sed -i.orig 's/^import collections/import collections.abc/' /usr/lib/python3/dist-packages/sleekxmpp/thirdparty/orderedset.py
+sed -i.orig 's/^class OrderedSet(collections.MutableSet):/class OrderedSet(collections.abc.MutableSet):/' /usr/lib/python3/dist-packages/sleekxmpp/thirdparty/orderedset.py
 ```
 
 Provided that you're able to connect to the NWWS and your credentials are accepted, you will start to see products downloaded, and if the `archivedir` config variable was specified, you'll see the products saved to the directory in the following format:
