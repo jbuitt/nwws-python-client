@@ -6,6 +6,7 @@ import os
 import logging
 import json
 import time
+import ssl
 import sleekxmpp
 from datetime import datetime
 from xml.dom import minidom
@@ -110,7 +111,8 @@ class MUCBot(sleekxmpp.ClientXMPP):
         #    self.send_message(mto=msg['from'].bare,
         #                      mbody="I heard that, %s." % msg['mucnick'],
         #                      mtype='groupchat')
-        print('message stanza rcvd from nwws-oi saying... ' + msg['body'])
+        #print(str(msg))
+        print('INFO\t message stanza rcvd from nwws-oi saying... ' + msg['body'])
         xmldoc = minidom.parseString(str(msg))
         itemlist = xmldoc.getElementsByTagName('x')
         ttaaii = itemlist[0].attributes['ttaaii'].value.lower()
@@ -121,7 +123,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
         if awipsid:
             dayhourmin = datetime.utcnow().strftime("%d%H%M")
             filename = cccc + '_' + ttaaii + '-' + awipsid + '.' + dayhourmin + '_' + id + '.txt'
-            #print("INFO\t Writing " + filename)
+            print("DEBUG\t Writing " + filename, file=sys.stderr)
             if not os.path.exists(config['archivedir'] + '/' + cccc):
                 os.makedirs(config['archivedir'] + '/' + cccc)
             # Remove every other line
@@ -141,7 +143,7 @@ class MUCBot(sleekxmpp.ClientXMPP):
                 try:
                     os.system(config['pan_run']+' '+pathtofile+' >/dev/null')
                 except OSError as e:
-                    print >>sys.stderr, "ERROR    Execution failed:", e
+                    print("ERROR\t Execution failed: " + e, file=sys.stderr)
 
     def muc_online(self, presence):
         """
@@ -189,8 +191,11 @@ if __name__ == '__main__':
         xmpp.register_plugin('xep_0045') # Multi-User Chat
         xmpp.register_plugin('xep_0199') # XMPP Ping
 
+        # nwws-oi.weather.gov now requires TLSv2.3
+        xmpp.ssl_version = ssl.PROTOCOL_SSLv23
+
         # Connect to the XMPP server and start processing XMPP stanzas.
-        if xmpp.connect((config['server'], config['port'])):
+        if xmpp.connect((config['server'], config['port']), config['retry'], config['use_tls'], config['use_ssl']):
             # If you do not have the dnspython library installed, you will need
             # to manually specify the name of the server if it does not match
             # the one in the JID. For example, to use Google Talk you would
