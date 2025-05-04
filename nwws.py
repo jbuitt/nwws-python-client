@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import collections
 import sys
 import signal
 import os
@@ -7,6 +8,7 @@ import logging
 import json
 import time
 import ssl
+import sys
 import slixmpp
 from datetime import datetime, timezone
 from xml.dom import minidom
@@ -123,6 +125,12 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         print('Usage: '+sys.argv[0]+' /path/to/config')
         sys.exit(1)
+
+    if sys.version_info.major == 3 and sys.version_info.minor >= 10:
+        from collections.abc import MutableSet
+        collections.MutableSet = collections.abc.MutableSet
+    else:
+        from collections import MutableSet
 
     # Parse JSON config
     config = json.load(open('config.json'))
