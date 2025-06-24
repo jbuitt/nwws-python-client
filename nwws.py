@@ -98,18 +98,22 @@ class MUCBot(slixmpp.ClientXMPP):
                 print("DEBUG\t Writing " + filename, file=sys.stderr)
                 if not os.path.exists(config['archivedir'] + '/' + cccc):
                     os.makedirs(config['archivedir'] + '/' + cccc)
-                # Remove every other line
+                # Remove every other line (if it's not a CAP file)
                 lines = content.splitlines()
                 pathtofile = config['archivedir'] + '/' + cccc + '/' + filename
                 f = open(pathtofile, 'w')
                 count = 0
-                for line in lines:
-                    if count == 0 and line == '':
-                        continue
-                    if count % 2 == 0:
+                if awipsid.startswith("cap"):
+                    for line in lines:
                         f.write(line + "\n")
-                    count += 1
-                f.close()
+                else:
+                    for line in lines:
+                        if count == 0 and line == '':
+                            continue
+                        if count % 2 == 0:
+                            f.write(line + "\n")
+                        count += 1
+                    f.close()
                 # Run a command using the file as the parameter (if pan_run is defined in the config file)
                 if 'pan_run' in config:
                     try:
