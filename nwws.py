@@ -11,6 +11,7 @@ import ssl
 import sys
 import asyncio
 import slixmpp
+import re
 from datetime import datetime, timezone
 from xml.dom import minidom
 
@@ -104,8 +105,11 @@ class MUCBot(slixmpp.ClientXMPP):
                 pathtofile = config['archivedir'] + '/' + cccc + '/' + filename
                 f = open(pathtofile, 'w')
                 count = 0
+                blank_lines = re.compile("^\s*$")
                 if awipsid.startswith("cap"):
                     for line in lines:
+                        if blank_lines.match(line):
+                            continue
                         f.write(line + "\n")
                 else:
                     for line in lines:
