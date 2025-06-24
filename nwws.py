@@ -9,6 +9,7 @@ import json
 import time
 import ssl
 import sys
+import asyncio
 import slixmpp
 from datetime import datetime, timezone
 from xml.dom import minidom
@@ -165,7 +166,7 @@ if __name__ == '__main__':
             xmpp.connect()
 
             print("INFO\t Connected to XMPP server, starting to process incoming products.")
-            xmpp.process()
+            asyncio.get_event_loop().run_forever()
 
         except ConnectionResetError:
             print("ERROR\t Caught ConnectionResetError exception, restarting..")
