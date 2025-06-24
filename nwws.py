@@ -105,7 +105,7 @@ class MUCBot(slixmpp.ClientXMPP):
                 pathtofile = config['archivedir'] + '/' + cccc + '/' + filename
                 f = open(pathtofile, 'w')
                 count = 0
-                blank_lines = re.compile("^\s*$")
+                blank_lines = re.compile(r"^\s*$")
                 if awipsid.startswith("cap"):
                     for line in lines:
                         if blank_lines.match(line):
